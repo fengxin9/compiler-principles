@@ -1,0 +1,57 @@
+// example.sy
+// 该程序接受一个正整数n输入(n<=MAX_N)，然后统计1~n之间的素数，输出素数个数以及所有素数
+
+const int MAX_N = 1000;      // 常量声明
+
+// 函数定义，返回int类型
+int is_prime(int n) {
+    // 判断 n 是否为素数，是返回1，否返回0
+    if (n <= 1) {   // 关系运算，n<=1不是素数
+        return 0;
+    }
+    if (n == 2){    // 2返回素数
+        return 1;
+    }
+
+    int i = 2;
+    int flag = 1;
+    while (i * i <= n) {   // while循环，暴力枚举
+        if (n % i == 0) {  // 条件语句
+            flag = 0;
+            break;        // break跳出循环
+        }
+        i = i + 1;
+    }
+    return flag;
+}
+
+int main() {
+    int n = getint();        // getint输入函数，需链接运行时库
+    int primes[MAX_N];       // 素数数组声明
+    int count = 0;           // 素数个数
+
+    int i = 1;
+    // SysY程序只支持while循环语句
+    while (i <= n && i < MAX_N) {   // 关系运算逻辑与
+        if (is_prime(i) == 1) {
+            primes[count] = i;   // 是素数则加入数组
+            count = count + 1;    
+        }
+        i = i + 1;  // 不是素数则继续循环
+    }
+
+    // 输出素数个数
+    putint(count);
+    putch(10);               
+    // putch(int)将整数参数的值作为ASCII码，输出对应的字符，这里10对应换行符
+
+    // 输出所有素数，以空格分隔
+    int j = 0;
+    while (j < count) {
+        putint(primes[j]);
+        putch(32);           // 输出空格
+        j = j + 1;
+    }
+
+    return 0;
+}
